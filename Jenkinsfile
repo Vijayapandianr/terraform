@@ -5,9 +5,11 @@ pipeline {
     }
 
     stages {
-		stage('Checkout') {
-			checkout scm
-		}
+	stage('Checkout') {
+	     steps {
+		checkout scm
+	     }
+	}
         stage('terraform vesrion') {
             steps {
                 script {
