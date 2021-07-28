@@ -1,8 +1,8 @@
 pipeline {
     agent any
-    tools {
+    /*tools {
         terraform 'sandbox_tf'
-    }
+    }*/
 
     stages {
 	stage('Checkout') {
@@ -13,17 +13,11 @@ pipeline {
         stage('terraform vesrion') {
             steps {
                 script {
-                    sh 'terraform --version'
+                    sh 'terrascan version'
+		    sh 'terrascan scan'
                 }
             }
         }
-        stage('terraform init') {
-            steps {
-                script {
-                    sh 'tflint --version'
-					sh 'tflint --format=checkstyle'
-                }
-            }
-        }
+       
     }
 }
