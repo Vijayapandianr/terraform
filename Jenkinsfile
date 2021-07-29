@@ -1,27 +1,28 @@
 pipeline {
-    agent any
-    tools {
-        terraform 'sandbox_tf'
-    }
+    agent {
+		label 'LinuxSlave-Static'
+	}
 
     stages {
-	stage('Checkout') {
-	     steps {
-		checkout scm
-	     }
-	}
-        stage('terraform vesrion') {
+		stage(checkout) {
+			steps {
+				checkout scm
+			}
+		}
+		stage('terraform Init') {
             steps {
                 script {
-                    sh 'terraform --version'
+                    sh 'terrascan init'
+					sh 'terrascan version'
+					
                 }
             }
         }
-        stage('terraform init') {
+		
+        stage('terraform scan') {
             steps {
                 script {
-                    sh 'tflint --version'
-					sh 'tflint --format=checkstyle'
+					sh 'terrascan scan'
                 }
             }
         }
